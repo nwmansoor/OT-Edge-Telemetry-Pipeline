@@ -1,0 +1,53 @@
+version: '3'
+services:
+  esphome:
+    container_name: esphome
+    image: esphome/esphome:latest
+    volumes:
+      - /home/sysop/iot-infra/esphome:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    privileged: true
+    network_mode: host
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
