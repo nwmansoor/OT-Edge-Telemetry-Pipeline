@@ -37,7 +37,8 @@ services:
 volumes:
   grafana_data:
 
-
+# All containers for observability stack have been deployed - 4/6/2026 10PM
+# All docker containers are up - 4/6/2026 10PM
 
 
 
