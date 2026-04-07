@@ -10,7 +10,32 @@ services:
     privileged: true
     network_mode: host
 
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    volumes:
+      - /home/sysop/iot-infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    network_mode: bridge
+    ports:
+      - "9090:9090"
 
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    network_mode: bridge
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+volumes:
+  grafana_data:
 
 
 
