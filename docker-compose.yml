@@ -55,7 +55,7 @@ services:
     network_mode: bridge
     environment:
       # password for Web GUI
-      - PASSWORD=wireguard123
+      - PASSWORD_HASH=$$2a$$12$$zyRM/fOVK0WU1XU49SxIBulxEwKIBRw20XF.hBND2vx8ohN5Hc.Ai
       # physical public IP so the QR codes know where to route
       - WG_HOST=22.99.88.222
     ports:
