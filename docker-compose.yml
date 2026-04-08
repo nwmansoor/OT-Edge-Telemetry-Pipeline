@@ -48,7 +48,7 @@ services:
       - grafana
       - esphome 
 
- wireguard:
+  wireguard:
     container_name: wireguard
     image: ghcr.io/wg-easy/wg-easy:latest
     restart: always
