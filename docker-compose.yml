@@ -48,6 +48,37 @@ services:
       - grafana
       - esphome 
 
+ wireguard:
+    container_name: wireguard
+    image: ghcr.io/wg-easy/wg-easy:latest
+    restart: always
+    network_mode: bridge
+    environment:
+      # password for Web GUI
+      - PASSWORD=wireguard123
+      # physical public IP so the QR codes know where to route
+      - WG_HOST=22.99.88.222
+    ports:
+      # UDP port for the actual VPN tunnel
+      - "51820:51820/udp"
+      # TCP port only for accessing the Web GUI via NGINX
+      - "51821:51821/tcp"
+    volumes:
+      # Bind mount to save the generated QR codes and keys to the host
+      - /home/sysop/iot-infra/wireguard:/etc/wireguard
+      # Bind mount for time sync to prevent replay attacks
+      - /etc/localtime:/etc/localtime:ro
+      # Bind mount allowing the container to access Debian's networking hardware
+      - /lib/modules:/lib/modules:ro
+    cap_add:
+      # Capability Add: Grants authority to create virtual network interfaces
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      # Modifies the Debian kernel to act as a router for the VPN traffic
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.src_valid_mark=1
+
 volumes:
   grafana_data:
 
@@ -56,7 +87,7 @@ volumes:
 
 # All containers for observability stack have been deployed - 4/6/2026 10PM
 # All docker containers are up (esphome, grafana, prometheus) - 4/6/2026 10PM
-
+# All docker containers are up (esphome, grafana, prometheus, NGINX) - 4/7/2026 11:05PM
 
 
 
