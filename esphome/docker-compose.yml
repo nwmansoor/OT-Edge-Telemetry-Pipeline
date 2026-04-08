@@ -34,11 +34,28 @@ services:
     depends_on:
       - prometheus
 
+  nginx:
+    container_name: nginx_rvrs_proxy
+    image: nginx:latest
+    volumes:
+      - /home/sysop/iot-infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    network_mode: bridge
+    ports:
+      - "80:80"
+    depends_on:
+      - grafana
+      - esphome 
+
 volumes:
   grafana_data:
 
+
+
+
 # All containers for observability stack have been deployed - 4/6/2026 10PM
-# All docker containers are up - 4/6/2026 10PM
+# All docker containers are up (esphome, grafana, prometheus) - 4/6/2026 10PM
 
 
 
